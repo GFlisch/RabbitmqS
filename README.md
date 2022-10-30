@@ -41,6 +41,14 @@ docker run  -d --name rbmq-ssl -p 5671:5671 -p 15672:15672 -v /tmp/rabbitmq-ssl:
 
 The mapping used here is to transfer the client certificates in /tmp/client.
 
+## Configure Rabbit.
+
+We have to create a user in Rabbitmq based on the certificate.</br>
+1. Start the management portal and log with the user guest and password guest. 
+2. Go to the Admin part of the site.
+3. Create a new user with no password and named: buildkitsandbox
+4. Give to this user full access to the vhost /
+
 ## Windows client.
 
 1. Copy the client certificates.
