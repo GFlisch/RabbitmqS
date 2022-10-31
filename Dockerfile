@@ -1,6 +1,7 @@
 FROM rabbitmq:management
 
 RUN     apt-get update \
+        && rabbitmq-plugins enable rabbitmq_auth_mechanism_ssl \
 	&& apt-get install ca-certificates -y \
 	&& apt-get install openssl -y  \ 
 	&& mkdir -p /home/testca/certs \
