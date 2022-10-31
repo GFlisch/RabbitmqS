@@ -6,10 +6,13 @@ This repository aims to build a Rabbitmq image with SSL to access the node and a
 
 The base image used is the Rabbitmq:management. So for development the management web site is available on the port 15672 (non ssl).
 
+
 The image is creating the necessary certificates.
 - Certificate authorithy.
 - Server certificate used by Rabbitmq to configure amqps.
 - Client certificate to be used to authenticate a client via it. 
+
+The image is also adding x509 authentication => rabbitmq-plugins enable rabbitmq_auth_mechanism_ssl
 
 It is recommended to mount a volume so that the client certificate can be reached from the
 host system. Client certificates are generated under the **/home/client** directory.
@@ -36,7 +39,7 @@ The generated image contains SSL certificates for the server side.
 To run the image run this command:
 
 ```
-docker run  -d --name rbmq-ssl -p 5671:5671 -p 15672:15672 -v /tmp/rabbitmq-ssl:/tmp/rabbitmq-ssl rabbitmq-with-ssl
+docker run  -d --name rbmq-ssl -p 5671:5671 -p 15672:15672 -v /tmp/rabbitmq-ssl:/tmp/rabbitmq-ssl rabbitmqssl
 ```
 
 The mapping used here is to transfer the client certificates in /tmp/client.
