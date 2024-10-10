@@ -33,32 +33,37 @@ git clone the repo.
 ```
 ./build.sh
 ```
-
 The generated image contains SSL certificates for the server side.
-
 To run the image run this command:
 
 ```
-docker run  -d --name rbmq-ssl -p 5671:5671 -p 15672:15672 -v /tmp/rabbitmq-ssl:/tmp/rabbitmq-ssl rabbitmqssl
+docker run  -d --name rbmq-ssl -p 5671:5671 -p 15672:15672 -v /tmp/rabbitmq-ssl:/home/client rabbitmqssl
 ```
-
 The mapping used here is to transfer the client certificates in /tmp/client.
+
+## host headers.
+The RabbitMQ server is configured to accept 3 hostnames:
+- localhost.
+- builkitsandbox.
+- machost.
+
+Most of the time the localhost will be used. 
+builkitsandbox is the hostname when the image is created.
+machost is used when I work with a mac and Parallels to communicate with the mac where Docker is running.
 
 ## Configure Rabbit.
 
 We have to create a user in Rabbitmq based on the certificate.</br>
 1. Start the management portal and log with the user guest and password guest. 
 2. Go to the Admin part of the site.
-3. Create a new user with no password and named: buildkitsandbox
+3. Create a new user with no password and named: svcdemo
 4. Give to this user full access to the vhost /
 
 ## Windows client.
 
 1. Copy the client certificates.
-2. Register the certificate authority: trust-store.p12 in the trusted store.
-3. Register the client certificate: key-store.p12 in the personal store.
-
-Trying to read the p12 via the file in code doesn't work. Via the Windows certificate store, it works.
+2. Register the certificate authority: trust-store.pfx in the trusted store.
+3. Register the client certificate: key-store.pfx in the personal store.
 
 The certificates generated are valid for 1 year!
 

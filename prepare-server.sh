@@ -25,7 +25,7 @@ cd /home/server
 openssl genrsa -out key.pem 2048
 
 # Generate a certificate from our private key.
-openssl req -new -key key.pem -out req.pem -outform PEM -subj /CN=localhost/O=server/ -nodes
+openssl req -new -key key.pem -out req.pem -outform PEM -subj /CN=$(hostname)/O=server/ -nodes
 # heredoc
 cat << EOF > /home/server/v3.ext
 subjectKeyIdentifier   = hash
@@ -33,7 +33,7 @@ authorityKeyIdentifier = keyid:always,issuer:always
 basicConstraints       = CA:false
 extendedKeyUsage       = 1.3.6.1.5.5.7.3.1
 keyUsage               = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment, keyAgreement, keyCertSign
-subjectAltName         = DNS:localhost, DNS:$(hostname)
+subjectAltName         = DNS:localhost, DNS:$(hostname), DNS:machost
 issuerAltName          = issuer:copy
 EOF
 

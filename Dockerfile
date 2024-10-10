@@ -16,13 +16,13 @@ COPY prepare-server.sh generate-client-keys.sh /home/
 
 RUN mkdir -p /home/server \
 	&& mkdir -p /home/client \
-	&& chmod +x /home/prepare-server.sh /home/generate-client-keys.sh
+	&& chmod +x /home/generate-client-keys.sh /home/prepare-server.sh 
 
-RUN 	/bin/bash /home/prepare-server.sh \
- 	&& /bin/bash /home/generate-client-keys.sh \
-	&& chmod 666 /home/client/*.* \
+RUN /bin/bash /home/prepare-server.sh \
 	&& cp /home/testca/cacert.pem /usr/local/share/ca-certificates/cacert.crt \
 	&& update-ca-certificates
+
+RUN /bin/bash /home/generate-client-keys.sh	
 
 CMD rabbitmq-server
 #sleep infinity

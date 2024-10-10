@@ -2,4 +2,4 @@
 
 IMAGE_NAME="rabbitmqssl"
 
-docker build --no-cache=true -t ${IMAGE_NAME} .
+docker build --no-cache=true  --progress=plain  -t ${IMAGE_NAME} .
